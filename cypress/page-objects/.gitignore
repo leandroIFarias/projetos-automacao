@@ -1,0 +1,8 @@
+# Ignorar os modulos instalados
+node_modules/
+
+# Ignorar os screenshots de erro gravados
+cypress/screenshots/
+
+# Ignorar os videos gravados
+cypress/videos/
