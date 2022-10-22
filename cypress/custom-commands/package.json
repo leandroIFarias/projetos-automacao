@@ -1,0 +1,15 @@
+{
+  "name": "custom-commands",
+  "version": "1.0.0",
+  "description": "Estrutura basica projeto Cypress com utilizacao de Custom Commands",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress open",
+    "cy:run": "cypress run"
+  },
+  "author": "Leandro Farias",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^10.9.0"
+  }
+}
