@@ -39,11 +39,16 @@ Scroll Down na pagina DEMO ate o final
     Wait Until Element Is Visible    ${DEMO_TEXT_FOOTER}    15
 
 
-Capturar Todos os Topicos Bloqueados
+
+Imprimir o título de todos os tópicos fechados
     Sleep    1
 
 
-Retornar o maior Tópico visualizado
+Imprimir a quantidade de itens de cada categoria e dos que não possuem categoria
+    Sleep    1
+
+
+Imprimir o título do tópico mais visualizado com o numero de visualizações
     [Documentation]    Keyword que Imprime o Nome do Topico mais visualizado com a quantidade de visualizações.
 
     ${numerViewsOld}    Set Variable    1

@@ -12,6 +12,7 @@ Resource    ../Resources/PageObjects/DemoPage.robot
 Suite Setup          Abrir navegador
 #Suite Teardown       Fechar navegador
 
+
 *** Test Case ***
 Cenario 1: Acessar site Discourse com sucesso 
     Acessar a página home do site
@@ -23,5 +24,6 @@ Cenario 2: Acessar o subMenu DEMO com sucesso
     Scroll Down na pagina DEMO ate o final
 
 Cenario 3: Capturar as informacoes de Titulos, Topicos e Views com sucesso
-    Capturar Todos os Topicos Bloqueados
-    Retornar o maior Tópico visualizado
+    Imprimir o título de todos os tópicos fechados
+    Imprimir a quantidade de itens de cada categoria e dos que não possuem categoria
+    Imprimir o título do tópico mais visualizado com o numero de visualizações
