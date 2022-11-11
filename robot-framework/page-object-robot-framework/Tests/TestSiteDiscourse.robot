@@ -10,7 +10,7 @@ Resource            ../Resources/ResourceExecution.robot
 Resource            ../resources/PageObjects/HomePage.robot
 Resource    ../Resources/PageObjects/DemoPage.robot
 Suite Setup          Abrir navegador
-#Suite Teardown       Fechar navegador
+Suite Teardown       Fechar navegador
 
 
 *** Test Case ***
