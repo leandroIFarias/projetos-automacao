@@ -9,7 +9,7 @@ Library    RPA.Windows
 ${DEMO_TEXT_FOOTER}              xpath=//div[@class='footer-message ember-view'][contains(.,'There are no more latest topics.')]
 ${HOME_TITLE}    Discourse is the place to build civilized communities | Discourse - Civilized Discussion
 ${DEMO_TITLE}    Demo
-
+${counterlockedTopic}    1
 
 
 *** Keywords ***
@@ -37,11 +37,24 @@ Scroll Down na pagina DEMO ate o final
         END
     END
     Wait Until Element Is Visible    ${DEMO_TEXT_FOOTER}    15
+    Sleep    2
 
 
 
 Imprimir o título de todos os tópicos fechados
-    Sleep    1
+    [Documentation]    Keyword que Imprimi o título de todos os tópicos fechados.
+    
+
+    ${qtdlockedTopic}     Execute Javascript    return document.querySelectorAll(".topic-statuses:has(.d-icon-lock) + a").length
+    Log    A quantidade de tópicos bloqueados foi: ${qtdlockedTopic}
+
+    FOR    ${counterlockedTopic}    IN RANGE    ${qtdlockedTopic}
+        #IF    ${counterlockedTopic} == 0
+        #    ${counterlockedTopic}    Evaluate    ${counterlockedTopic} +1
+        #END
+        ${namelockedTopic}     Execute Javascript    return document.querySelectorAll(".topic-statuses:has(.d-icon-lock) + a").item(${counterlockedTopic}).innerText
+        Log    O tópico '${namelockedTopic}' está bloqueado.
+    END
 
 
 Imprimir a quantidade de itens de cada categoria e dos que não possuem categoria
