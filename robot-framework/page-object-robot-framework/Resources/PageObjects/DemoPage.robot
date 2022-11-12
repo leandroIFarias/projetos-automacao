@@ -3,6 +3,7 @@ Library    SeleniumLibrary
 Library    String
 Library    ../../Library/testes.py
 Library    RPA.Windows
+Library    Collections
 
 
 *** Variables ***
@@ -10,7 +11,6 @@ ${DEMO_TEXT_FOOTER}              xpath=//div[@class='footer-message ember-view']
 ${HOME_TITLE}    Discourse is the place to build civilized communities | Discourse - Civilized Discussion
 ${DEMO_TITLE}    Demo
 ${counterlockedTopic}    1
-
 
 *** Keywords ***
 Switch Pages Browser
@@ -43,22 +43,37 @@ Scroll Down na pagina DEMO ate o final
 
 Imprimir o título de todos os tópicos fechados
     [Documentation]    Keyword que Imprimi o título de todos os tópicos fechados.
-    
 
     ${qtdlockedTopic}     Execute Javascript    return document.querySelectorAll(".topic-statuses:has(.d-icon-lock) + a").length
     Log    A quantidade de tópicos bloqueados foi: ${qtdlockedTopic}
 
     FOR    ${counterlockedTopic}    IN RANGE    ${qtdlockedTopic}
-        #IF    ${counterlockedTopic} == 0
-        #    ${counterlockedTopic}    Evaluate    ${counterlockedTopic} +1
-        #END
         ${namelockedTopic}     Execute Javascript    return document.querySelectorAll(".topic-statuses:has(.d-icon-lock) + a").item(${counterlockedTopic}).innerText
         Log    O tópico '${namelockedTopic}' está bloqueado.
     END
 
 
 Imprimir a quantidade de itens de cada categoria e dos que não possuem categoria
-    Sleep    1
+    [Documentation]    Imprimir a quantidade de itens de cada categoria e dos que não possuem categoria.
+    
+    ${qtdCategories}     Execute Javascript    return document.querySelectorAll(".category-name").length
+    ${categoriesList}    Create List
+    
+    #For para capturar todas as categorias inclusive repetidas
+    FOR    ${countCategories}    IN RANGE    ${qtdCategories}
+        ${itemCategories}    Execute Javascript    return document.querySelectorAll(".category-name").item(${countCategories}).innerText
+        Append To List    ${categoriesList}    ${itemCategories}
+    END
+    
+    @{categoriesListNotRepetition}    Remove Duplicates    ${categoriesList}
+    Log    Categorias encontradas: @{categoriesListNotRepetition}.
+
+    #For para filtrar as categorias e suas respectivas quantidades
+    ${itemCategoriesFound}    Set Variable
+    FOR    ${itemList}    IN    @{categoriesListNotRepetition}
+        ${itemCategoriesFound}    Get Match Count    ${categoriesList}    ${itemList}
+        Log    A categoria ${itemList} possui: ${itemCategoriesFound} itens. 
+    END
 
 
 Imprimir o título do tópico mais visualizado com o numero de visualizações
